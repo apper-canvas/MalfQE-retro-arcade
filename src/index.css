@@ -31,38 +31,104 @@ body {
   font-display: swap;
 }
 
-.font-arcade {
-  font-family: 'Arcade', monospace;
-  letter-spacing: 0.05em;
-}
-
-.animate-glow {
-  animation: glow 1.5s ease-in-out infinite alternate;
-}
-
-@keyframes glow {
-  from {
-    text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary), 0 0 15px var(--primary);
+@layer base {
+  .font-arcade {
+    font-family: 'Arcade', monospace;
+    letter-spacing: 0.05em;
   }
-  to {
-    text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+
+  .animate-glow {
+    animation: glow 1.5s ease-in-out infinite alternate;
   }
-}
 
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
+  @keyframes glow {
+    from {
+      text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary), 0 0 15px var(--primary);
+    }
+    to {
+      text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+    }
+  }
 
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .shadow-neon {
+    box-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary);
+  }
+
+  /* CRT Screen Effect */
+  .crt-screen {
+    background: linear-gradient(to bottom, #000000, #121218);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .crt-screen::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, 
+      rgba(18, 16, 16, 0) 50%, 
+      rgba(0, 0, 0, 0.25) 50%);
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .crt-screen::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+      circle at center,
+      transparent 30%,
+      rgba(0, 0, 0, 0.3) 90%
+    );
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .scanlines {
+    position: relative;
+  }
+
+  .scanlines::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 1px,
+      rgba(0, 0, 0, 0.3) 1px,
+      rgba(0, 0, 0, 0.3) 2px
+    );
+    pointer-events: none;
+    z-index: 3;
+  }
 }
 
 @layer components {
   .arcade-btn {
     @apply px-4 py-2 bg-primary text-white font-bold rounded-lg shadow-lg
-           hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-surface-900
-           transition-all duration-200 transform hover:scale-105;
+         hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-surface-900
+         transition-all duration-200 transform hover:scale-105;
   }
 
   .arcade-btn-secondary {
@@ -71,74 +137,10 @@ body {
 
   .game-card {
     @apply bg-surface-800 rounded-lg border border-surface-700 overflow-hidden
-           transition-all duration-300 hover:shadow-lg;
+         transition-all duration-300 hover:shadow-lg;
   }
 
   .nav-link {
     @apply font-medium transition-colors duration-200;
   }
-}
-
-.shadow-neon {
-  box-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary);
-}
-
-/* CRT Screen Effect */
-.crt-screen {
-  background: linear-gradient(to bottom, #000000, #121218);
-  position: relative;
-  overflow: hidden;
-}
-
-.crt-screen::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(to bottom, 
-    rgba(18, 16, 16, 0) 50%, 
-    rgba(0, 0, 0, 0.25) 50%);
-  background-size: 100% 4px;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.crt-screen::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(
-    circle at center,
-    transparent 30%,
-    rgba(0, 0, 0, 0.3) 90%
-  );
-  pointer-events: none;
-  z-index: 2;
-}
-
-.scanlines {
-  position: relative;
-}
-
-.scanlines::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent,
-    transparent 1px,
-    rgba(0, 0, 0, 0.3) 1px,
-    rgba(0, 0, 0, 0.3) 2px
-  );
-  pointer-events: none;
-  z-index: 3;
 }
