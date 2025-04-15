@@ -22,9 +22,6 @@ export default {
           100: 'var(--surface-100)',
         },
       },
-      fontFamily: {
-        arcade: ['Arcade', 'monospace'],
-      },
     },
   },
   plugins: [],
