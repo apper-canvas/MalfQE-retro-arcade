@@ -2,69 +2,123 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    @apply antialiased;
+:root {
+  --primary: #00BFFF;
+  --secondary: #FF00FF;
+  --accent: #FFCC00;
+  --surface-900: #121212;
+  --surface-800: #1E1E1E;
+  --surface-700: #2E2E2E;
+  --surface-600: #3E3E3E;
+  --surface-500: #505050;
+  --surface-400: #9E9E9E;
+  --surface-300: #C0C0C0;
+  --surface-200: #E0E0E0;
+  --surface-100: #F0F0F0;
+}
+
+body {
+  @apply bg-surface-900 text-white;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+@font-face {
+  font-family: 'Arcade';
+  src: url('/fonts/arcade.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-arcade {
+  font-family: 'Arcade', monospace;
+  letter-spacing: 0.05em;
+}
+
+.animate-glow {
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary), 0 0 15px var(--primary);
+  }
+  to {
+    text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
   }
 }
 
-@layer components {
-  .arcade-btn {
-    @apply relative inline-flex items-center justify-center px-6 py-3 overflow-hidden font-arcade text-sm font-medium text-white bg-primary rounded-lg transition-all duration-300;
-  }
-  
-  .arcade-btn::before {
-    @apply content-[''] absolute top-0 left-0 w-full h-full bg-white/20 transform scale-x-0 origin-top-right transition-transform duration-300;
-  }
-  
-  .arcade-btn:hover::before {
-    @apply transform scale-x-100 origin-top-left;
-  }
-  
-  .arcade-btn-secondary {
-    @apply bg-secondary text-surface-900;
-  }
-  
-  .arcade-btn-accent {
-    @apply bg-accent;
-  }
-  
-  .game-card {
-    @apply relative overflow-hidden rounded-lg bg-surface-800 border-2 border-surface-700 transition-all duration-300;
-  }
-  
-  .game-card:hover {
-    @apply border-primary transform scale-[1.02] shadow-neon;
-  }
-  
-  .pixel-corners {
-    clip-path: polygon(
-      0% 4px, 4px 4px, 4px 0%, calc(100% - 4px) 0%, calc(100% - 4px) 4px, 100% 4px,
-      100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0% calc(100% - 4px)
-    );
-  }
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-@layer utilities {
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .text-glow {
-    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
-  }
-  
-  .neon-border {
-    box-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
-  }
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
-/* Custom scanline effect */
+.arcade-btn {
+  @apply px-4 py-2 bg-primary text-white font-bold rounded-lg shadow-lg
+         hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-surface-900
+         transition-all duration-200 transform hover:scale-105;
+}
+
+.arcade-btn-secondary {
+  @apply bg-surface-800 hover:bg-surface-700 focus:ring-surface-700;
+}
+
+.game-card {
+  @apply bg-surface-800 rounded-lg border border-surface-700 overflow-hidden
+         transition-all duration-300 hover:shadow-lg;
+}
+
+.shadow-neon {
+  box-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary);
+}
+
+.nav-link {
+  @apply font-medium transition-colors duration-200;
+}
+
+/* CRT Screen Effect */
+.crt-screen {
+  background: linear-gradient(to bottom, #000000, #121218);
+  position: relative;
+  overflow: hidden;
+}
+
+.crt-screen::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, 
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%);
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.crt-screen::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at center,
+    transparent 30%,
+    rgba(0, 0, 0, 0.3) 90%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
 .scanlines {
   position: relative;
 }
@@ -78,34 +132,11 @@
   bottom: 0;
   background: repeating-linear-gradient(
     to bottom,
-    transparent 0%,
-    rgba(0, 0, 0, 0.05) 0.5%,
-    transparent 1%
+    transparent,
+    transparent 1px,
+    rgba(0, 0, 0, 0.3) 1px,
+    rgba(0, 0, 0, 0.3) 2px
   );
   pointer-events: none;
-  z-index: 10;
-}
-
-/* CRT screen effect */
-.crt-screen {
-  position: relative;
-  overflow: hidden;
-  border-radius: 8px;
-}
-
-.crt-screen::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(
-    ellipse at center,
-    transparent 0%,
-    rgba(0, 0, 0, 0.2) 90%,
-    rgba(0, 0, 0, 0.4) 100%
-  );
-  pointer-events: none;
-  z-index: 5;
+  z-index: 3;
 }

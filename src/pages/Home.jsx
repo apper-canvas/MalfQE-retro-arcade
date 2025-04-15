@@ -1,74 +1,13 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { Gamepad2, Trophy, Users, Clock, Star, ChevronRight, ChevronLeft } from 'lucide-react'
 import MainFeature from '../components/MainFeature'
 import { 
-  PacManSvg,
-  TetrisSvg,
-  SpaceInvadersSvg,
-  DonkeyKongSvg,
-  GalagaSvg,
-  FroggerSvg,
   RetroBackgroundSvg,
   ArcadeCabinetSvg
 } from '../components/svgs'
-
-const GAMES = [
-  {
-    id: 'pacman',
-    title: 'Pac-Man',
-    description: 'Navigate through a maze while eating dots and avoiding ghosts.',
-    SvgComponent: PacManSvg,
-    year: 1980,
-    difficulty: 'Medium',
-    category: 'Maze'
-  },
-  {
-    id: 'tetris',
-    title: 'Tetris',
-    description: 'Arrange falling blocks to create complete rows without gaps.',
-    SvgComponent: TetrisSvg,
-    year: 1984,
-    difficulty: 'Medium',
-    category: 'Puzzle'
-  },
-  {
-    id: 'space-invaders',
-    title: 'Space Invaders',
-    description: 'Defend Earth from waves of descending alien invaders.',
-    SvgComponent: SpaceInvadersSvg,
-    year: 1978,
-    difficulty: 'Easy',
-    category: 'Shooter'
-  },
-  {
-    id: 'donkey-kong',
-    title: 'Donkey Kong',
-    description: 'Help Mario rescue the princess from the giant ape Donkey Kong.',
-    SvgComponent: DonkeyKongSvg,
-    year: 1981,
-    difficulty: 'Hard',
-    category: 'Platform'
-  },
-  {
-    id: 'galaga',
-    title: 'Galaga',
-    description: 'Shoot down swarms of alien ships while dodging their attacks.',
-    SvgComponent: GalagaSvg,
-    year: 1981,
-    difficulty: 'Medium',
-    category: 'Shooter'
-  },
-  {
-    id: 'frogger',
-    title: 'Frogger',
-    description: 'Guide frogs across a busy road and hazardous river to safety.',
-    SvgComponent: FroggerSvg,
-    year: 1981,
-    difficulty: 'Medium',
-    category: 'Arcade'
-  }
-]
+import GAMES from '../data/GAMES'
 
 const LEADERBOARD = [
   { id: 1, username: "PixelMaster", game: "Pac-Man", score: 203450, date: "2023-10-15" },
@@ -303,9 +242,9 @@ const Home = () => {
                           {game.difficulty}
                         </span>
                       </div>
-                      <button className="arcade-btn text-xs py-2 px-4">
-                        Play Now
-                      </button>
+                      <Link to={`/games/${game.id}`} className="arcade-btn text-xs py-2 px-4">
+                        View Details
+                      </Link>
                     </div>
                   </div>
                 </motion.div>
@@ -354,7 +293,14 @@ const Home = () => {
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm">{entry.game}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm">
+                      <Link 
+                        to={`/games/${entry.game.toLowerCase().replace(' ', '-')}`}
+                        className="hover:text-primary transition-colors"
+                      >
+                        {entry.game}
+                      </Link>
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-mono font-bold text-primary">{entry.score.toLocaleString()}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-surface-400">{entry.date}</td>
                   </tr>
