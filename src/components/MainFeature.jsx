@@ -1,6 +1,16 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Search, Filter, Gamepad2, ArrowRight, X, Star } from 'lucide-react'
+import { 
+  PacManSvg, 
+  TetrisSvg, 
+  SpaceInvadersSvg, 
+  DonkeyKongSvg, 
+  GalagaSvg, 
+  FroggerSvg,
+  AsteroidsSvg,
+  CentipedeSvg
+} from './svgs'
 
 // Game data
 const GAMES = [
@@ -8,7 +18,7 @@ const GAMES = [
     id: 'pacman',
     title: 'Pac-Man',
     description: 'Navigate through a maze while eating dots and avoiding ghosts.',
-    thumbnail: 'https://cdn.pixabay.com/photo/2021/02/08/15/44/pacman-5995222_1280.png',
+    SvgComponent: PacManSvg,
     year: 1980,
     difficulty: 'Medium',
     category: 'Maze',
@@ -23,7 +33,7 @@ const GAMES = [
     id: 'tetris',
     title: 'Tetris',
     description: 'Arrange falling blocks to create complete rows without gaps.',
-    thumbnail: 'https://cdn.pixabay.com/photo/2016/09/15/19/24/tetris-1672582_1280.png',
+    SvgComponent: TetrisSvg,
     year: 1984,
     difficulty: 'Medium',
     category: 'Puzzle',
@@ -38,7 +48,7 @@ const GAMES = [
     id: 'space-invaders',
     title: 'Space Invaders',
     description: 'Defend Earth from waves of descending alien invaders.',
-    thumbnail: 'https://cdn.pixabay.com/photo/2013/07/12/14/45/space-invaders-148825_1280.png',
+    SvgComponent: SpaceInvadersSvg,
     year: 1978,
     difficulty: 'Easy',
     category: 'Shooter',
@@ -53,7 +63,7 @@ const GAMES = [
     id: 'donkey-kong',
     title: 'Donkey Kong',
     description: 'Help Mario rescue the princess from the giant ape Donkey Kong.',
-    thumbnail: 'https://cdn.pixabay.com/photo/2021/02/11/15/40/arcade-6005417_1280.png',
+    SvgComponent: DonkeyKongSvg,
     year: 1981,
     difficulty: 'Hard',
     category: 'Platform',
@@ -68,7 +78,7 @@ const GAMES = [
     id: 'galaga',
     title: 'Galaga',
     description: 'Shoot down swarms of alien ships while dodging their attacks.',
-    thumbnail: 'https://cdn.pixabay.com/photo/2021/02/11/15/35/arcade-6005411_1280.png',
+    SvgComponent: GalagaSvg,
     year: 1981,
     difficulty: 'Medium',
     category: 'Shooter',
@@ -83,7 +93,7 @@ const GAMES = [
     id: 'frogger',
     title: 'Frogger',
     description: 'Guide frogs across a busy road and hazardous river to safety.',
-    thumbnail: 'https://cdn.pixabay.com/photo/2021/02/11/15/38/arcade-6005415_1280.png',
+    SvgComponent: FroggerSvg,
     year: 1981,
     difficulty: 'Medium',
     category: 'Arcade',
@@ -98,7 +108,7 @@ const GAMES = [
     id: 'asteroids',
     title: 'Asteroids',
     description: 'Pilot a spaceship and destroy asteroids while avoiding collisions.',
-    thumbnail: 'https://cdn.pixabay.com/photo/2021/02/11/15/34/arcade-6005410_1280.png',
+    SvgComponent: AsteroidsSvg,
     year: 1979,
     difficulty: 'Hard',
     category: 'Shooter',
@@ -113,7 +123,7 @@ const GAMES = [
     id: 'centipede',
     title: 'Centipede',
     description: 'Shoot at a descending centipede that splits into segments when hit.',
-    thumbnail: 'https://cdn.pixabay.com/photo/2021/02/11/15/36/arcade-6005412_1280.png',
+    SvgComponent: CentipedeSvg,
     year: 1980,
     difficulty: 'Medium',
     category: 'Shooter',
@@ -222,10 +232,7 @@ const MainFeature = () => {
               <div className="flex flex-col items-center justify-center h-full">
                 <h2 className="text-2xl font-arcade text-primary mb-4">{selectedGame.title}</h2>
                 <div className="w-3/4 h-3/4 border-4 border-primary flex items-center justify-center">
-                  <p className="text-center font-arcade text-sm">
-                    Game simulation would load here.<br />
-                    Use arrow keys or WASD to control.
-                  </p>
+                  <selectedGame.SvgComponent className="w-full h-full p-8" />
                 </div>
                 <button 
                   onClick={handleExitGame}
@@ -390,11 +397,7 @@ const MainFeature = () => {
                     onClick={() => handleGameSelect(game)}
                   >
                     <div className="relative aspect-video overflow-hidden">
-                      <img 
-                        src={game.thumbnail} 
-                        alt={game.title}
-                        className="w-full h-full object-cover"
-                      />
+                      <game.SvgComponent />
                       <div className="absolute inset-0 bg-gradient-to-t from-surface-900 to-transparent opacity-70"></div>
                       <div className="absolute bottom-0 left-0 p-3">
                         <h3 className="text-base font-bold text-white">{game.title}</h3>
