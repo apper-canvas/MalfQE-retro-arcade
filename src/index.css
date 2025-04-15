@@ -1,0 +1,111 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased;
+  }
+}
+
+@layer components {
+  .arcade-btn {
+    @apply relative inline-flex items-center justify-center px-6 py-3 overflow-hidden font-arcade text-sm font-medium text-white bg-primary rounded-lg transition-all duration-300;
+  }
+  
+  .arcade-btn::before {
+    @apply content-[''] absolute top-0 left-0 w-full h-full bg-white/20 transform scale-x-0 origin-top-right transition-transform duration-300;
+  }
+  
+  .arcade-btn:hover::before {
+    @apply transform scale-x-100 origin-top-left;
+  }
+  
+  .arcade-btn-secondary {
+    @apply bg-secondary text-surface-900;
+  }
+  
+  .arcade-btn-accent {
+    @apply bg-accent;
+  }
+  
+  .game-card {
+    @apply relative overflow-hidden rounded-lg bg-surface-800 border-2 border-surface-700 transition-all duration-300;
+  }
+  
+  .game-card:hover {
+    @apply border-primary transform scale-[1.02] shadow-neon;
+  }
+  
+  .pixel-corners {
+    clip-path: polygon(
+      0% 4px, 4px 4px, 4px 0%, calc(100% - 4px) 0%, calc(100% - 4px) 4px, 100% 4px,
+      100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%, 4px 100%, 4px calc(100% - 4px), 0% calc(100% - 4px)
+    );
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .text-glow {
+    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+  }
+  
+  .neon-border {
+    box-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+  }
+}
+
+/* Custom scanline effect */
+.scanlines {
+  position: relative;
+}
+
+.scanlines::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.05) 0.5%,
+    transparent 1%
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* CRT screen effect */
+.crt-screen {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.crt-screen::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    rgba(0, 0, 0, 0.2) 90%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  pointer-events: none;
+  z-index: 5;
+}
