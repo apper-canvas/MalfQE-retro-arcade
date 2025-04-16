@@ -6,7 +6,8 @@ import {
   GalagaSvg, 
   FroggerSvg,
   AsteroidsSvg,
-  CentipedeSvg
+  CentipedeSvg,
+  DoomSvg
 } from '../components/svgs'
 
 const GAMES = [
@@ -177,6 +178,29 @@ The player is represented by a small, somewhat humanoid head at the bottom of th
     creator: 'Atari',
     highScore: 7655930,
     recordHolder: 'Donald Hayes'
+  },
+  {
+    id: 'doom',
+    title: 'Doom',
+    description: 'Battle demons and undead in this groundbreaking first-person shooter.',
+    longDescription: `Doom is a first-person shooter game developed by id Software and released in 1993. It is widely regarded as one of the most significant and influential titles in gaming history, popularizing the FPS genre and pioneering immersive 3D graphics.
+
+The player takes the role of a space marine, popularly known as "Doomguy," fighting his way through hordes of invading demons from Hell. The game is divided into three episodes: "Knee-Deep in the Dead," "The Shores of Hell," and "Inferno."
+
+Doom introduced many features that became standard in later first-person shooters, including 3D environments, networked multiplayer gameplay, custom WAD modifications, and support for user-created content. Its fast-paced action, intricate level design, and atmospheric horror elements set new standards for game design.`,
+    SvgComponent: DoomSvg,
+    year: 1993,
+    difficulty: 'Hard',
+    category: 'FPS',
+    popularity: 5,
+    controls: {
+      arrows: true,
+      wasd: true,
+      touch: false
+    },
+    creator: 'id Software',
+    highScore: 1666670,
+    recordHolder: 'Zero Master'
   }
 ]
 
